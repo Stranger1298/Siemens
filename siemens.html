@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Round-II Technical Interview Topics — Checklist</title>
+  <style>
+    :root{--bg:#0f172a;--card:#0b1220;--muted:#94a3b8;--accent:#7c3aed;--glass:rgba(255,255,255,0.04)}
+    html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#061021 0%, #071428 100%);color:#e6eef8}
+    .container{max-width:980px;margin:32px auto;padding:24px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    h1{font-size:20px;margin:0 0 6px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+    .btn{background:var(--accent);border:none;color:white;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+    .sections{display:grid;grid-template-columns:1fr;gap:12px}
+    section.card{background:var(--card);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+    section.card h2{margin:0 0 8px;font-size:14px}
+    ul.checklist{list-style:none;padding:0;margin:0;display:block}
+    ul.checklist li{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+    ul.checklist li:last-child{border-bottom:0}
+    .item-label{line-height:1.3;color:#dbeafe}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:var(--glass);color:var(--muted)}
+    @media (min-width:880px){.sections{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div>
+        <h1>Round-II Technical Interview Topics — Checklist</h1>
+        <p class="lead">Check items as you study. Your progress will persist after refresh.</p>
+      </div>
+      <div style="text-align:right"><div class="tag">Persistent Version</div></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="downloadBtn">Download HTML</button>
+      <button class="btn secondary" id="clearChecks">Clear All Checks</button>
+      <button class="btn secondary" id="checkAll">Check All</button>
+    </div>
+
+    <div class="sections" id="sections"></div>
+
+    <footer>Progress autosaves via localStorage. You can safely refresh or reopen the page.</footer>
+  </div>
+
+  <script>
+    const topics = {
+      'PART A – PROGRAMMING FUNDAMENTALS': [
+        'Programming in C / C++: Data types, variables, operators, and control structures','Functions and parameter passing','Arrays, strings, and pointers','Dynamic memory allocation (malloc(), calloc(), free())','Structures, unions, and enums','File handling concepts','C++ Specific: Classes and objects','Constructors and destructors','Function and operator overloading','Inheritance and polymorphism','Encapsulation and abstraction','Coding Tasks: String reversal without using library functions','Swapping variables using pointers','Implement simple class with constructor/destructor','Code output prediction (arrays, loops, pointers)'
+      ],
+      'PART B – DATA STRUCTURES & ALGORITHMS (DSA)': [
+        'Arrays','Linked Lists (Singly, Doubly, Circular)','Stacks and Queues (operations and applications)','Trees (Binary, Binary Search, AVL, N-ary)','Graphs (BFS, DFS, adjacency list/matrix representation)','Heaps and Hash Tables','Insert/Delete operations in linked list','Delete last node in linked list','Count number of leaf nodes in binary tree','Print K largest/smallest elements in array','Sort array of 0s, 1s, and 2s','Mirror check in n-ary tree','Find longest valid substring','Sorting: Bubble, Insertion, Merge, Quick, Selection Sort','Searching: Linear, Binary Search','Time and Space Complexity (Best, Average, Worst Cases)','Recursion and Divide & Conquer Techniques','Dynamic Programming (Introductory level)','Playlist deletion problem – best data structure choice','Undo function implementation – use of Stack','Merging two sorted lists – Merge sort technique','Analyze O(n), O(log n), O(n²) operations','Space efficiency in recursive algorithms'
+      ],
+      'PART C – OBJECT-ORIENTED PROGRAMMING (OOPs)': [
+        'Encapsulation','Inheritance (Single, Multiple, Hierarchical)','Polymorphism (Compile-time and Run-time)','Abstraction','Constructors, Destructors, and Access Specifiers','Aggregation vs Composition','Interface vs Class','Abstract classes and virtual functions','Friend function and operator overloading'
+      ],
+      'PART D – DATABASE MANAGEMENT SYSTEMS (DBMS) & SQL': [
+        'DBMS architecture and normalization','Keys: Primary, Foreign, Candidate, and Composite','Joins: Inner, Outer, Left, Right, Equi-join','Constraints and relationships','SQL Queries: Select, Insert, Update, Delete','Group By, Having, Order By, Aggregate functions','Subqueries and Nested queries','Scenario: Employees living in same city as manager but not on same street','Scenario: Courses with >30 students, sorted by semester (DESC) and course (ASC)','ACID properties','Difference between DBMS and RDBMS','Views, Triggers, and Stored Procedures'
+      ],
+      'PART E – OPERATING SYSTEMS': [
+        'Process, Thread, and Scheduling','Kernel types (Monolithic, Micro, Hybrid)','System Calls and Interrupts','Virtual Memory and Paging','Deadlock: Detection, Prevention, and Avoidance','Dispatcher vs Scheduler'
+      ],
+      'PART F – COMPUTER NETWORKS': [
+        'OSI and TCP/IP Models','Network Layers: Functions and Devices','IP Addressing and Subnetting basics','Network Topologies: Bus, Star, Ring, Mesh','Transmission modes and error control','Protocols: TCP/IP, HTTP, FTP, DNS, SMTP, DHCP','CSMA/CD, Token Passing','IP Spoofing and Security Basics','Choosing best topology for small factory or large company','Reliability and scalability trade-offs'
+      ],
+      'PART G – SOFTWARE ENGINEERING / TESTING CONCEPTS': [
+        'SDLC (Software Development Life Cycle) – Phases and Models','STLC (Software Testing Life Cycle)','Bug Life Cycle','Verification vs Validation'
+      ],
+      'PART H – WEB TECHNOLOGIES (BASICS)': [
+        'Web application vs Website','HTML/CSS selectors (Parent/Child)','JavaScript basics (for logic building)','Arrays vs Hash Tables'
+      ],
+      'LOGICAL IMPLEMENTATION & CODE OUTPUT': [
+        'Bitwise operations','String manipulations','Counting-based loops and patterns','Array traversal and swapping logic','Pseudocode tracing and dry runs','Time-space trade-offs','Optimizing logic for large datasets','Choosing data structures for performance'
+      ]
+    };
+
+    const container = document.getElementById('sections');
+    Object.entries(topics).forEach(([title, items]) => {
+      const section = document.createElement('section');
+      section.className = 'card';
+      const h2 = document.createElement('h2');
+      h2.textContent = title;
+      section.appendChild(h2);
+      const ul = document.createElement('ul');
+      ul.className = 'checklist';
+      items.forEach((text, i) => {
+        const id = title + '_' + i;
+        const li = document.createElement('li');
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.id = id;
+        const saved = localStorage.getItem(id);
+        if (saved === 'true') cb.checked = true;
+        cb.addEventListener('change', () => {
+          localStorage.setItem(id, cb.checked);
+        });
+        const label = document.createElement('label');
+        label.className = 'item-label';
+        label.textContent = text;
+        label.setAttribute('for', id);
+        li.append(cb, label);
+        ul.appendChild(li);
+      });
+      section.appendChild(ul);
+      container.appendChild(section);
+    });
+
+    document.getElementById('clearChecks').addEventListener('click', () => {
+      document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+        localStorage.removeItem(cb.id);
+      });
+    });
+
+    document.getElementById('checkAll').addEventListener('click', () => {
+      document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.checked = true;
+        localStorage.setItem(cb.id, true);
+      });
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Interview_Topics_Checklist.html';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
